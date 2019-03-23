@@ -1,3 +1,4 @@
+# 用class包中的knn算法预测iris（鸢尾花数据集）中的分类
 library(class) #载入class包（knn算法）
 library(gmodels) #载入gmodels包（crosstable）
 iris->iris #载入R自带的iris数据集，重新赋值数据框
