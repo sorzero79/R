@@ -1,0 +1,12 @@
+library(class) #载入class包（knn算法）
+library(gmodels) #载入gmodels包（crosstable）
+iris->iris #载入R自带的iris数据集，重新赋值数据框
+iris_scale<-scale(iris[-5]) #将iris中除第五列（类型因子）外的数据标准化
+View(iris_scale) #查看iris_scale中标准化后的数据
+index<-sample(150,120) #从150个自然整数中随机抽样120个，建立index索引
+iris_scale[index,]->train #利用index索引，从iris_scale抽样120个案例建立用于训练的train子数据集
+iris_scale[-index,]->test #利用-index索引（注意负号），从iris_scale抽样（150-120=30）个案例建立用于测试的test子数据集
+iris[index,5]->train_lab #利用index索引，从原iris数据集的第五列（即species列）中抽样120个案例对应的分类标签，建立用于训练的train_lab因子向量
+iris[-index,5]->test_lab #利用-index索引，从原iris数据集的第五列（即species列）中抽样30个案例对应的分类标签，建立用于结果比对的test_lab因子向量
+knn(train,test,train_lab,11)->pre #将knn算法的预测结果赋值给pre
+CrossTable(pre,test_lab) #利用crosstable比对预测结果和test_lab中的分类标签
