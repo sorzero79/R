@@ -4,3 +4,6 @@ d[na,c('姓名','工龄')] #以na向量定位行，并显示姓名和工龄
 
 # Mac下ggplot作图避免中文乱码：加一行参数代码theme(text = element_text(family='Kai'))
 ggplot(d)+geom_bar(aes(x=横坐标,y=纵坐标,fill=标记),stat='identity')+theme(text = element_text(family='STKaiti'))
+
+# 填补用工形式的缺失值
+d[which(is.na(d$用工形式)),'用工形式']<-c('劳务外包人员')
