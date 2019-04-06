@@ -1,0 +1,6 @@
+# 缺失值查询和定位：d的数据框中，‘工龄段’变量存在缺失值
+na<-which(is.na(d$工龄段)) #返回工龄段为TRUE的指针，存为na变量
+d[na,c('姓名','工龄')] #以na向量定位行，并显示姓名和工龄
+
+# Mac下ggplot作图避免中文乱码：加一行参数代码theme(text = element_text(family='Kai'))
+ggplot(d)+geom_bar(aes(x=横坐标,y=纵坐标,fill=标记),stat='identity')+theme(text = element_text(family='STKaiti'))
