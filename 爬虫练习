@@ -1,0 +1,9 @@
+# 爬取广西人才网上包含“人力资源”内容的职位名称
+# 需要用到chrome浏览器的selectorgadget插件（CSS selector）
+library(rvest)
+list()->posname
+for (i in 1:20) {
+  page<-read_html(paste('http://s.gxrc.com/sJob?schType=1&page=',i,'&pageSize=30&orderType=0&listValue=1&keyword=%E4%BA%BA%E5%8A%9B%E8%B5%84%E6%BA%90',sep = ''))    
+  html_text(html_nodes(page,'.posName'))->posname_html
+  append(posname,posname_html)->posname
+}
