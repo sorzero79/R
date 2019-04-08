@@ -7,3 +7,7 @@ for (i in 1:20) {
   html_text(html_nodes(page,'.posName'))->posname_html
   append(posname,posname_html)->posname
 }
+
+# 爬取广西人才网企业页面信息，注意编码要转为GBK，否则会出现乱码
+read_html('http://www.gxrc.com/WebPage/Company.aspx?EnterpriseID=1600502',encoding = 'GBK')->entcatpage
+html_nodes(entcatpage,'#header li~ li+ li')%>%html_text()->entcat
