@@ -1,31 +1,31 @@
 # 爬取广西人才网上包含“人力资源”内容的职位名称
 # 需要用到chrome浏览器的selectorgadget插件（CSS selector）
+
 library(tidyverse)
 library(rvest)
+
 c()->posname
 c()->entname
 c()->salary
 c()->entlink
-for (i in 1:30) {
+c()->entcat
+
+for (i in 1:5) {
   url<-paste('http://s.gxrc.com/sJob?schType=1&page=',i,'&pageSize=20&orderType=0&listValue=1&keyword=%E4%BA%BA%E5%8A%9B%E8%B5%84%E6%BA%90',sep = '')
-  
-  read_html(url)%>%html_nodes('.posName')%>%html_text()->posname_html
+  read_html(url)%>%html_nodes('.posName')%>%html_text()->posname_html #职位名
   append(posname,posname_html)->posname
-  
-  read_html(url)%>%html_nodes('.entName')%>%html_text()->entname_html
+  read_html(url)%>%html_nodes('.entName')%>%html_text()->entname_html #企业名
   append(entname,entname_html)->entname
-  
-  read_html(url)%>%html_nodes('.w3')%>%html_text()->salary_html
+  read_html(url)%>%html_nodes('.w3')%>%html_text()->salary_html #薪酬
   append(salary,salary_html)->salary
-  
-  read_html(url)%>%html_nodes('.entName')%>%html_attr('href')->entlink_html
+  read_html(url)%>%html_nodes('.entName')%>%html_attr('href')->entlink_html #从企业名获取连接
   append(entlink,entlink_html)->entlink
-  
 }
 
-write.csv(as.data.frame(salary),'salary.csv')
 
+for (n in 1:sum(lengths(entlink))) {
+  read_html(entlink[n],encoding = 'GBK')%>%html_nodes('#header li~ li+ li')%>%html_text()->entcat_html #从企业链接解析企业页面，爬取行业名
+  append(entcat,entcat_html)->entcat
+}
 
-# 爬取广西人才网企业页面信息，注意编码要转为GBK，否则会出现乱码
-read_html('http://www.gxrc.com/WebPage/Company.aspx?EnterpriseID=1600502',encoding = 'GBK')->entcatpage
-html_nodes(entcatpage,'#header li~ li+ li')%>%html_text()->entcat
+# salary和entcat可能包含其他信息，建议用write.csv函数导出excel清洗，最后再导入分析。
