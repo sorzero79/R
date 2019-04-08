@@ -2,12 +2,17 @@
 # 需要用到chrome浏览器的selectorgadget插件（CSS selector）
 library(rvest)
 c()->posname #注意这里，爬取数据先存为c()向量，不能是list列表
-for (i in 1:20) {
-  page<-read_html(paste('http://s.gxrc.com/sJob?schType=1&page=',i,'&pageSize=30&orderType=0&listValue=1&keyword=%E4%BA%BA%E5%8A%9B%E8%B5%84%E6%BA%90',sep = ''))    
-  html_text(html_nodes(page,'.posName'))->posname_html
+c()->entname
+c()->salary
+for (i in 1:30) {
+  url<-paste('http://s.gxrc.com/sJob?schType=1&page=',i,'&pageSize=20&orderType=0&listValue=1&keyword=%E4%BA%BA%E5%8A%9B%E8%B5%84%E6%BA%90',sep = '')
+  read_html(url)%>%html_nodes('.posName')%>%html_text()->posname_html
   append(posname,posname_html)->posname
+  read_html(url)%>%html_nodes('.entName')%>%html_text()->entname_html
+  append(entname,entname_html)->entname
+  read_html(url)%>%html_nodes('.w3')%>%html_text()->salary_html
+  append(salary,salary_html)->salary
 }
-
 # 爬取广西人才网企业页面信息，注意编码要转为GBK，否则会出现乱码
 read_html('http://www.gxrc.com/WebPage/Company.aspx?EnterpriseID=1600502',encoding = 'GBK')->entcatpage
 html_nodes(entcatpage,'#header li~ li+ li')%>%html_text()->entcat
