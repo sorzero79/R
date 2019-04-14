@@ -1,8 +1,24 @@
+library(tidyverse)
 library(rvest)
-url<-'https://nn.esf.fang.com/'
-read_html(url,encoding = 'GBK')->webpage
-html_nodes(webpage,'.tit_shop')%>%html_text()->title
-html_nodes(webpage,'.red+ span')%>%html_text()->cost
-html_nodes(webpage,'.add_shop span')%>%html_text()->location
-data.frame(title,cost,location)->fangjia
-view(fangjia)
+
+title<-c()
+info<-c()
+cost<-c()
+location<-c()
+
+for (i in 1:20) {
+  url<-paste('https://nn.esf.fang.com/house/h316-i3',i,sep = '')
+  read_html(url,encoding = 'GBK')->webpage
+  
+  html_nodes(webpage,'.add_shop a')%>%html_text()->title_h
+  append(title,title_h)->title
+  
+  html_nodes(webpage,'.tel_shop')%>%html_text()->info_h
+  append(info,info_h)->info
+  
+  html_nodes(webpage,'.red+ span')%>%html_text()->cost_h
+  append(cost,cost_h)->cost
+  
+  html_nodes(webpage,'.add_shop span')%>%html_text()->location_h
+  append(location,location_h)->location
+}
