@@ -4,6 +4,4 @@ read.csv('fangjia.csv')->d
 getCoordinate(as.character(d$adress),formatted = T)%>%as.data.frame()->d2 #从d中的adress变量获取经纬度，存在d2数据框
 
 library(remap)
-remapB(center = c(116.3151,39.99901),zoom=14,markPointData = d)
-
-remapB(center = c(116.3151,39.99901),zoom=14,markPointData = d$name,title = 'ceshi',markPointTheme = markPointControl(symbol = 'circle',symbolSize = 10,effect = T,color = 'red'))
+remapB(center = c(108.3544710801,22.8193719106),zoom=13,title = '南宁房价地图',markPointData = fj[3],markPointTheme = markPointControl(effect = F,symbol = 'circle',color='red',symbolSize = 5),geoData = fj)
