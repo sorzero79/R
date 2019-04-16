@@ -2,3 +2,8 @@ library(tidyverse)
 library(baidumap)
 read.csv('fangjia.csv')->d
 getCoordinate(as.character(d$adress),formatted = T)%>%as.data.frame()->d2 #从d中的adress变量获取经纬度，存在d2数据框
+
+library(remap)
+remapB(center = c(116.3151,39.99901),zoom=14,markPointData = d)
+
+remapB(center = c(116.3151,39.99901),zoom=14,markPointData = d$name,title = 'ceshi',markPointTheme = markPointControl(symbol = 'circle',symbolSize = 10,effect = T,color = 'red'))
