@@ -1,14 +1,17 @@
 library(mailR)  
-i<-1
-for (i in [1:3]) {
+
+
+for (i in 1:1) {
+
+write.csv(d[i,],paste('E:\\',d[i,1],'.csv'))
   
-body = as.character(d[i,])  # 正文
-recipients <- c("sorzero79@163.com", "sorzero791@sina.com")   # 收件人  
+  
+recipients <- as.character(d[i,3])   # 收件人  
 sender = "31681335@qq.com"  # 发件人  
-title = "this is title"   # 主题  
-send.mail(from = sender,  to = recipients,  subject = title,  body = 'zhengwen',  
+title = "2019年4月工资"   # 主题  
+send.mail(from = sender,  to = recipients,  subject = title,  body = '测试一下',  
           encoding = "utf-8", smtp = list( host.name = "smtp.qq.com", 
                                            port = 587,user.name = sender,  passwd = "zvouvjodtttbbjcc",  ssl = TRUE ),  
-          authenticate = TRUE, send= TRUE)  
+          authenticate = TRUE, send= TRUE,attach.files = c("E:\\ceshi.txt"))
 
 }
