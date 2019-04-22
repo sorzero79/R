@@ -1,6 +1,9 @@
 library(mailR)  
 library(xlsx)
 
+read.csv('E:\\salary\\salary.csv')->d
+d[is.na(d)]<-0
+
 for (i in 1:2) {
   
   write.xlsx(d[i,],paste('E:\\salary\\',d[i,1],'.xlsx'))
@@ -9,8 +12,7 @@ for (i in 1:2) {
   sender = "31681335@qq.com"
   title = "2019年4月工资条（测试）"
   send.mail(from = sender,  to = recipients,  subject = title,  body = '本月工资表见附件，有疑问请与我们联系。（本邮件发自捷通人力部）',  
-            encoding = "utf-8", smtp = list( host.name = "smtp.qq.com", 
-                                             port = 587,user.name = sender,  passwd = "zvouvjodtttbbjcc",  ssl = TRUE ),  
+            encoding = "utf-8", smtp = list( host.name = "smtp.qq.com", port = 587,user.name = sender,  passwd = "zvouvjodtttbbjcc",  ssl = TRUE ),  
             authenticate = TRUE, send= TRUE,attach.files = paste('E:\\salary\\',d[i,1],'.xlsx'))
   
 }
