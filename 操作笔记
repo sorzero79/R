@@ -7,3 +7,8 @@ ggplot(d)+geom_bar(aes(x=横坐标,y=纵坐标,fill=标记),stat='identity')+the
 
 # 填补用工形式的缺失值
 d[which(is.na(d$用工形式)),'用工形式']<-c('劳务外包人员')
+
+# 拆分列
+df <- data.frame(a=c("1-2", "23-4", "5-67", "89-10", "11-23"))
+library(splitstackshape)
+concat.split.multiple(df, "a", "-")
