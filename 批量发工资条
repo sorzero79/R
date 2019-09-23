@@ -1,3 +1,5 @@
+#运营之前要配置JAVA环境：https://blog.csdn.net/wqdwin/article/details/75386673
+
 library(mailR)  
 library(xlsx)
 
