@@ -1,4 +1,8 @@
-#运行之前要配置JAVA环境：https://blog.csdn.net/wqdwin/article/details/75386673
+#用R的邮件包，写了个批量发放工资条的脚本。
+#还没能在正文添加内容，只能作为附件批量发送。原理是将工资表按姓名拆分存为独立的xls文件，然后分别以附件打包发送至对应邮箱。
+#本文代码中用的是QQ邮箱，但每日访问次数有限，还在另外想办法。或者先发一半，然后换成另一个邮箱继续……
+#其他与代码有关的学习笔记上传在了Github上： https://github.com/sorzero79
+#mailR包在运行之前要配置JAVA环境，参考：https://blog.csdn.net/wqdwin/article/details/75386673
 
 library(mailR)  
 library(xlsx)
@@ -11,10 +15,10 @@ for (i in 1:2) {
   write.xlsx(d[i,],paste('E:\\salary\\',d[i,1],'.xlsx'))
   
   recipients <- as.character(d[i,3])
-  sender = "31681335@qq.com"
-  title = "2019年4月工资条（测试）"
+  sender = "xxxxxxx@qq.com"
+  title = "2019年x月工资条"
   send.mail(from = sender,  to = recipients,  subject = title,  body = '本月工资表见附件，有疑问请与我们联系。（本邮件发自捷通人力部）',  
-            encoding = "utf-8", smtp = list( host.name = "smtp.qq.com", port = 587,user.name = sender,  passwd = "zvouvjodtttbbjcc",  ssl = TRUE ),  
+            encoding = "utf-8", smtp = list( host.name = "smtp.qq.com", port = 587,user.name = sender,  passwd = "xxxxxxx",  ssl = TRUE ),  
             authenticate = TRUE, send= TRUE,attach.files = paste('E:\\salary\\',d[i,1],'.xlsx'))
   
 }
